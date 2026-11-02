@@ -1195,6 +1195,23 @@ h2 { font-size: 17px; }
 .screen-lighting .mirror { margin-top: 4px; }
 .screen-lighting .group { margin-top: 14px; }
 
+.mirror--photo .mirror__photo {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #f4ebe4;
+  box-shadow: 0 10px 22px rgba(90, 60, 40, 0.12);
+}
+
+.mirror--photo .mirror__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .group__card--pad { padding: 12px 12px 10px; }
 
 .screen-lighting .slider { margin: 0; padding: 14px 16px 6px; }
