@@ -1,11 +1,12 @@
-const SCREENS = ["start", "connect", "pairing", "connected", "home", "scan", "results", "product", "settings", "lighting"];
+const SCREENS = ["start", "connect", "pairing", "connected", "home", "scan", "analyzing", "results", "product", "settings", "lighting"];
 const TABBED = new Set(["home", "product", "settings", "lighting"]);
+const SETTINGS_ENTRY = new Set(["home", "results", "product", "scan", "lighting"]);
 
 const state = {
   collected: false,
   mode: "natural",
   brightness: 52,
-  auto: true
+  auto: false
 };
 
 let pairTimer = 0;
@@ -52,11 +53,19 @@ function render() {
 
   phone.querySelector(".tabbar").classList.toggle("is-on", TABBED.has(name));
 
+  const settingsEntry = phone.querySelector(".settings-entry");
+  const showSettings = SETTINGS_ENTRY.has(name);
+  settingsEntry.hidden = !showSettings;
+  settingsEntry.classList.toggle("is-on", showSettings);
+
   if (!capturing() && name === "pairing") {
     pairTimer = window.setTimeout(() => go("connected", true), 1700);
   }
   if (!capturing() && name === "connected") {
     pairTimer = window.setTimeout(() => go("home", true), 1500);
+  }
+  if (!capturing() && name === "analyzing") {
+    pairTimer = window.setTimeout(() => go("results", true), 2200);
   }
   syncLighting();
   if (name === "product") syncProduct();
@@ -91,11 +100,7 @@ function syncProduct() {
 }
 
 function capture() {
-  const flash = document.getElementById("flash");
-  flash.classList.remove("is-on");
-  void flash.offsetWidth;
-  flash.classList.add("is-on");
-  window.setTimeout(() => go("results"), 360);
+  go("analyzing", true);
 }
 
 phone.addEventListener("click", (event) => {
@@ -142,5 +147,6 @@ phone.addEventListener("input", (event) => {
 
 window.addEventListener("hashchange", render);
 
-if (!location.hash) location.replace("#/start");
-else render();
+if (capturing()) render();
+else if (location.hash === "#/start") render();
+else location.replace("#/start");

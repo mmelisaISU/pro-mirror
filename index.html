@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=41" />
+  <link rel="stylesheet" href="styles.css?v=58" />
 </head>
 <body>
   <svg class="sprite" aria-hidden="true">
@@ -81,17 +81,11 @@
         <span>Back</span>
       </button>
       <h1 class="page-title">Connect Your Mirror</h1>
-      <div class="mirror" aria-hidden="true">
-        <div class="mirror__bezel">
-          <span class="mirror__dot"></span>
-          <div class="mirror__glass"><img src="assets/mirror.png" alt=""></div>
-        </div>
-      </div>
-      <ul class="steps">
-        <li class="is-done">Turn on your mirror</li>
+      <ol class="steps">
+        <li>Turn on your mirror</li>
         <li>Turn on Bluetooth <svg class="mini"><use href="#i-bt"/></svg></li>
-        <li>Keep your mirror is nearby</li>
-      </ul>
+        <li>Keep your mirror nearby</li>
+      </ol>
       <div class="dock">
         <button class="btn" type="button" data-go="pairing">Search for Mirror</button>
         <p class="trouble">Having Trouble?</p>
@@ -104,9 +98,6 @@
           <h1>Good Morning, Linda!</h1>
           <p>Mon, Oct 12th · 75° · Ames, IA</p>
         </div>
-        <button class="avatar" type="button" data-go="settings" aria-label="Mirror settings">
-          <svg><use href="#i-cog"/></svg>
-        </button>
       </header>
 
       <section class="home-block">
@@ -114,7 +105,6 @@
           <h2>Your Skin Data</h2>
           <button type="button" data-go="results">See Details <svg class="mini"><use href="#i-chev"/></svg></button>
         </div>
-        <button class="btn btn--scan" type="button" data-go="scan">Start New Scan</button>
         <div class="panel skin">
           <img class="skin__photo" src="assets/portrait.png" alt="Linda’s latest scan">
           <div class="meters">
@@ -123,6 +113,7 @@
             <div class="meter"><p>Dullness</p><span class="meter__track"><i style="width:68%"></i></span></div>
           </div>
         </div>
+        <button class="btn btn--scan" type="button" data-go="scan">Start New Scan</button>
         <button class="panel insight" type="button" data-go="product">
           <svg class="spark" aria-hidden="true"><use href="#i-spark"/></svg>
           <span>
@@ -135,7 +126,6 @@
       <section class="home-block">
         <div class="section-head">
           <h2>Mirror Lighting</h2>
-          <button type="button" data-go="lighting">More <svg class="mini"><use href="#i-chev"/></svg></button>
         </div>
         <div class="panel light-card light-card--compact">
           <div class="modes modes--home" role="group" aria-label="Mirror lighting">
@@ -153,16 +143,37 @@
     </section>
 
     <section class="screen screen-scan" data-screen="scan">
-      <img class="scan__photo" src="assets/scan.png" alt="Face lined up for a skin scan">
-      <div class="scan__fade scan__fade--top"></div>
-      <div class="scan__fade scan__fade--bottom"></div>
-      <img class="scan__brackets scan__brackets--top" src="assets/brackets.svg" alt="">
-      <img class="scan__brackets scan__brackets--bottom" src="assets/brackets.svg" alt="">
       <button class="scan-cancel" type="button" data-back>Cancel</button>
-      <button class="shutter" id="shutter" type="button" aria-label="Capture scan">
-        <span></span>
-      </button>
-      <div class="flash" id="flash"></div>
+      <div class="scan-guide">
+        <header class="scan-guide__intro">
+          <h1>Take your photo on the mirror</h1>
+          <p>Use your Smart Mirror to capture the scan. The phone will show your results when you’re done.</p>
+        </header>
+        <ol class="scan-steps">
+          <li>
+            <span class="scan-steps__num">1</span>
+            <div>
+              <strong>Stand at eye level</strong>
+              <span>Face the mirror so your face fills the frame.</span>
+            </div>
+          </li>
+          <li>
+            <span class="scan-steps__num">2</span>
+            <div>
+              <strong>Center your face</strong>
+              <span>Keep still and look straight ahead.</span>
+            </div>
+          </li>
+          <li>
+            <span class="scan-steps__num">3</span>
+            <div>
+              <strong>Capture on the mirror</strong>
+              <span>Tap the mirror’s capture button to take the photo.</span>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <button class="btn btn--scan-done" id="shutter" type="button">I’ve Taken My Photo</button>
     </section>
 
     <section class="screen screen-results" data-screen="results">
@@ -225,9 +236,9 @@
     </section>
 
     <section class="screen screen-settings" data-screen="settings">
-      <button class="nav-back" type="button" data-go="home">
+      <button class="nav-back" type="button" data-back>
         <svg><use href="#i-back"/></svg>
-        <span>Home</span>
+        <span>Back</span>
       </button>
       <h1>Mirror Settings</h1>
 
@@ -305,13 +316,20 @@
       <div class="auto">
         <div class="auto__head">
           <p>Auto Adjust</p>
-          <button class="switch is-on" id="auto" type="button" role="switch" aria-checked="true" aria-label="Auto adjust lighting"></button>
+          <button class="switch" id="auto" type="button" role="switch" aria-checked="false" aria-label="Auto adjust lighting"></button>
         </div>
         <p class="auto__note">Automatically adjusts your mirror’s LED lighting based on your selected lighting preferences.</p>
       </div>
         </div>
       </section>
-      <button class="btn btn--save" type="button" data-go="settings">Save Settings</button>
+      <button class="btn btn--save" type="button" data-go="home">Save Settings</button>
+    </section>
+
+    <section class="screen screen-analyzing" data-screen="analyzing">
+      <div class="analyzing" role="status" aria-live="polite">
+        <div class="analyzing__spinner" aria-hidden="true"></div>
+        <p>Analyzing your results</p>
+      </div>
     </section>
 
     <div class="overlay" data-screen="pairing">
@@ -341,6 +359,10 @@
       </div>
     </div>
 
+    <button class="settings-entry" type="button" data-go="settings" aria-label="Mirror settings" hidden>
+      <svg><use href="#i-cog"/></svg>
+    </button>
+
     <nav class="tabbar" aria-label="Primary">
       <button class="tab" type="button" data-go="home">
         <svg><use href="#i-home"/></svg>
@@ -360,6 +382,6 @@
       </span>
     </nav>
   </div>
-  <script src="app.js?v=42"></script>
+  <script src="app.js?v=55"></script>
 </body>
 </html>
