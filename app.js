@@ -123,6 +123,16 @@ phone.addEventListener("click", (event) => {
     return;
   }
 
+  const saveBtn = event.target.closest(".product__saved");
+  if (saveBtn) {
+    event.stopPropagation();
+    const on = !saveBtn.classList.contains("is-on");
+    saveBtn.classList.toggle("is-on", on);
+    saveBtn.setAttribute("aria-pressed", String(on));
+    saveBtn.setAttribute("aria-label", on ? "Saved" : "Save product");
+    return;
+  }
+
   if (event.target.closest("#shutter")) {
     capture();
     return;
